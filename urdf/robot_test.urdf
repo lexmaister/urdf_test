@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<robot name="robot_test">
+
+  <link name="base_link">
+    <visual>
+      <origin rpy="1.571 0 3.142" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://urdf_test/meshes/base_link.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="link_2">
+    <visual>
+      <origin rpy="1.571 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://urdf_test/meshes/link_2.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="link_3">
+    <visual>
+      <origin rpy="-1.571 3.142 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://urdf_test/meshes/link_3.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="link_4">
+    <visual>
+      <origin rpy="-1.571 3.142 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://urdf_test/meshes/link_4.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="joint_1" type="revolute">
+    <parent link="base_link"/>
+    <child link="link_2"/>
+    <limit effort="0" lower="-1.571" upper="1.571" velocity="0"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="0 0 0.05"/>
+  </joint>
+
+  <joint name="joint_2" type="revolute">
+    <parent link="link_2"/>
+    <child link="link_3"/>
+    <limit effort="0" lower="-1.571" upper="1.571" velocity="0"/>
+    <axis xyz="1 0 0"/>
+    <origin xyz="0 0 0.29"/>
+  </joint>
+
+  <joint name="joint_3" type="revolute">
+    <parent link="link_3"/>
+    <child link="link_4"/>
+    <limit effort="0" lower="-1.571" upper="1.571" velocity="0"/>
+    <axis xyz="1 0 0"/>
+    <origin xyz="0 0 0.22"/>
+  </joint>
+
+</robot>

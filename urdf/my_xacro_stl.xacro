@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+
+<robot name="test-xacro-stl" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="width" value="0.4" />
+  <xacro:property name="hight" value="0.6" />
+  <xacro:property name="depth" value="0.2" />
+  <xacro:property name="pi" value="3.1415" />
+
+  <material name="black">
+      <color rgba="0 0 0 1"/>
+    </material>
+  
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="${depth} ${width} ${hight}"/>
+      </geometry>
+      <origin xyz="0 0 ${hight/2}" rpy="0 0 0" />
+      <material name="black"/>
+    </visual>
+  </link>
+
+  <xacro:macro name="leg" params="prefix reflect">
+    <link name="${prefix}_leg">
+      <visual>
+        <geometry>
+          <cylinder length="${hight-0.05}" radius="${depth/2}"/>
+        </geometry>
+        <origin xyz="0 0 ${-hight/2+0.1}" rpy="0 0 0" />
+        <material name="white"/>
+      </visual>
+    </link>  
+
+    <joint name="base_to_${prefix}_leg" type="continuous">
+      <parent link="base_link"/>
+      <child link="${prefix}_leg"/>
+      <origin xyz="0 ${reflect*(width/2 + depth/2)} ${hight-0.1}" />
+      <axis xyz="0 1 0" rpy="0 0 0" />
+    </joint>  
+  </xacro:macro>
+
+  <!--xacro:leg prefix="right" reflect="-1" /-->
+  <!--xacro:leg prefix="left" reflect="1" /-->
+
+  <xacro:macro name="leg_stl" params="prefix reflect">
+    <joint name="base_to_${prefix}_leg_stl" type="continuous">
+      <parent link="base_link"/>
+      <child link="${prefix}_leg_stl"/>
+      <origin xyz="0 ${reflect*(width/2 + depth/2)} ${hight-0.1}" />
+      <axis xyz="0 1 0" rpy="0 0 0" />
+    </joint>  
+    <link name="${prefix}_leg_stl">
+      <visual>
+        <geometry>
+          <mesh filename="package://urdf_test/meshes/test_cylinder.dae"/>
+        </geometry>
+        <origin xyz="0 0 ${-hight/2+0.1}" rpy="0 0 0" />
+        <material name="blue"/>
+      </visual>
+    </link>
+
+  </xacro:macro>
+
+  <xacro:leg_stl prefix="right" reflect="-1" />
+  <xacro:leg_stl prefix="left" reflect="1" />
+
+</robot>
