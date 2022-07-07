@@ -9,7 +9,7 @@
 
   <node name="PS3_test" pkg="urdf_test" type="PS3_test.py" />
   <node name="Joy_talker" pkg="urdf_test" type="Joy_talker.py" />
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
   <node name="joy" pkg="joy" type="joy_node"/>
   
